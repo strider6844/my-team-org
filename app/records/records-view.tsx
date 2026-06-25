@@ -11,7 +11,7 @@ import {
   type TeamMember,
   type WorkRecord,
 } from "@/lib/types";
-import { formatDate, isOverdue } from "@/lib/dates";
+import { formatDate, isOverdue, isStale } from "@/lib/dates";
 import { useActor, useToast } from "../providers";
 import { PriorityBadge, TypeBadge } from "../components/badges";
 import { RecordForm, type RecordFormValues } from "./record-form";
@@ -224,6 +224,11 @@ export function RecordsView({ initialRecords, members }: Props) {
                     {isOverdue(r.due_date, r.status) && (
                       <span className="text-xs font-medium text-red-600">
                         Overdue
+                      </span>
+                    )}
+                    {isStale(r.due_date, r.status) && (
+                      <span className="rounded bg-red-50 px-1.5 py-0.5 text-xs font-medium text-red-700">
+                        Stale
                       </span>
                     )}
                   </div>
